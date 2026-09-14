@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 40 18% 97.5%;
+  --foreground: 220 16% 8%;
+  --card: 0 0% 100%;
+  --muted: 40 12% 94%;
+  --muted-foreground: 220 7% 42%;
+  --border: 35 10% 88%;
+  --accent: 158 42% 36%;
+  --primary: 158 42% 30%;
+  --primary-foreground: 0 0% 100%;
+  --destructive: 4 68% 46%;
+  --warning: 34 84% 43%;
+  --success: 158 42% 30%;
+  --radius: 0.75rem;
+  --shadow-sm: 0 1px 2px rgb(17 19 22 / 0.035);
+  --shadow-md: 0 18px 40px rgb(17 19 22 / 0.06);
+}
+
+.dark {
+  --background: 220 13% 7%;
+  --foreground: 40 15% 95%;
+  --card: 220 12% 10%;
+  --muted: 220 10% 15%;
+  --muted-foreground: 30 7% 66%;
+  --border: 220 8% 22%;
+  --accent: 157 46% 48%;
+  --primary: 157 46% 45%;
+  --primary-foreground: 220 13% 7%;
+  --destructive: 4 63% 52%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+  font-feature-settings: "ss01", "cv02", "cv03", "cv04";
+}
+
+::selection {
+  background: hsl(var(--accent) / 0.18);
+}
+
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground;
+  }
+
+  .panel {
+    @apply border border-border/90 bg-card;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .button-primary {
+    @apply inline-flex min-h-10 items-center justify-center gap-2 bg-foreground px-4 text-sm font-medium tracking-[-0.01em] text-background transition-all hover:bg-foreground/90 disabled:cursor-not-allowed disabled:opacity-45;
+    border-radius: calc(var(--radius) - 2px);
+  }
+
+  .button-secondary {
+    @apply inline-flex min-h-10 items-center justify-center gap-2 border border-border bg-card px-4 text-sm font-medium tracking-[-0.01em] transition-all hover:border-foreground/25 hover:bg-muted disabled:cursor-not-allowed disabled:opacity-45;
+    border-radius: calc(var(--radius) - 2px);
+  }
+
+  .input-base {
+    @apply h-11 w-full border border-border bg-card px-3.5 text-sm placeholder:text-muted-foreground transition-colors hover:border-foreground/25 focus:border-foreground/45 focus:outline-none;
+    border-radius: calc(var(--radius) - 2px);
+  }
+
+  .page-container {
+    @apply mx-auto w-full max-w-[1500px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-muted;
+    border-radius: calc(var(--radius) - 2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,22 @@
+flowchart TB
+  Buyer[Buyer] --> UI[Next.js Procurement Console]
+  UI -->|REST| API[FastAPI modular monolith]
+  API --> LG[LangGraph purchasing agent]
+  LG --> Tools[Typed tools]
+  Tools --> ERP[Mock procurement adapters]
+  LG --> Rules[Deterministic rules engine]
+  Rules --> Dec[Structured Decision]
+  Dec --> HITL{Needs approval?}
+  HITL -->|yes| Human[Approver]
+  HITL -->|no| Act[Create or modify PO]
+  Human --> Act
+  Act --> Val[Validation engine]
+  Val -->|pass| Done[Success]
+  Val -->|fail| Rec[Recovery]
+  Rec --> Act
+  Done --> Audit[Audit trail]
+  Rec --> Audit
+  API --> PG[(PostgreSQL 16 + pgvector)]
+  API --> Redis[(Redis)]
+  LG --> RAG[Policy RAG]
+  RAG --> PG
